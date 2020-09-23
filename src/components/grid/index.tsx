@@ -1,15 +1,22 @@
 import React, { FC, Children } from 'react';
 
+import Block from './block';
+import { Container, Row } from './styles';
+
 const Grid: FC = () => {
 	return (
-		<div data-cy="grid-container">
+		<Container data-cy="grid-container">
 			{/* You don't have to use index as key prop */}
 			{Children.toArray(
-				[ ...Array(9) ].map((_) =>
-					Children.toArray([ ...Array(9) ].map((_, colIndex) => <div>{colIndex}</div>))
-				)
+				[ ...Array(9) ].map((_, rowIndex) => (
+					<Row data-cy="grid-row-container">
+						{Children.toArray(
+							[ ...Array(9) ].map((_, colIndex) => <Block colIndex={colIndex} rowIndex={rowIndex} />)
+						)}
+					</Row>
+				))
 			)}
-		</div>
+		</Container>
 	);
 };
 
