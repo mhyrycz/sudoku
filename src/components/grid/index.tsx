@@ -2,27 +2,13 @@ import React, { FC, Children } from 'react';
 
 import Block from './block';
 import { Container, Row } from './styles';
-import { fillGrid } from 'utils';
-import { GRID } from 'typings';
+import { createFullGrid } from 'utils';
 
 const Grid: FC = () => {
-	const grid: GRID = [
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-		[ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-	];
-
-	fillGrid(grid);
 
 	return (
 		<Container data-cy="grid-container">
-			{console.log(grid)}
+			{console.log(createFullGrid())}
 			{/* You don't have to use index as key prop */}
 			{Children.toArray(
 				[ ...Array(9) ].map((_, rowIndex) => (
