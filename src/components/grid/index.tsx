@@ -1,15 +1,24 @@
-import React, { FC, Children } from 'react';
+import React, { FC, Children, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { AnyAction, Dispatch } from 'redux';
 
 import Block from './block';
 import { Container, Row } from './styles';
-import { createFullGrid } from 'utils';
+
+import { createGrid } from 'reducers';
 
 const Grid: FC = () => {
+	const dispatch = useDispatch<Dispatch<AnyAction>>();
+	const create = useCallback(() => dispatch(createGrid()), [ dispatch ]);
+	useEffect(
+		() => {
+			create();
+		},
+		[ create ]
+	);
 
 	return (
 		<Container data-cy="grid-container">
-			{console.log(createFullGrid())}
-			{/* You don't have to use index as key prop */}
 			{Children.toArray(
 				[ ...Array(9) ].map((_, rowIndex) => (
 					<Row data-cy="grid-row-container">
