@@ -17,15 +17,19 @@ interface IProps {
 
 interface IState {
 	value: N;
+	isActive: boolean;
 }
 
 const Block: FC<IProps> = ({ colIndex, rowIndex }) => {
-	const state = useSelector<IReducer, IState>(({ grid }) => ({ value: grid ? grid[colIndex][rowIndex] : 0 }));
+	const state = useSelector<IReducer, IState>(({ grid, selectedBlock }) => ({
+		value: grid ? grid[colIndex][rowIndex] : 0,
+		isActive: selectedBlock ? selectedBlock[0] === colIndex && selectedBlock[1] === rowIndex : false
+	}));
 	const dispatch = useDispatch<Dispatch<AnyAction>>();
 	const select = () => dispatch(selectBlock([ colIndex, rowIndex ]));
 
 	return (
-		<Container data-cy={`block-${rowIndex}-${colIndex}`} onClick={select}>
+		<Container active={state.isActive} data-cy={`block-${rowIndex}-${colIndex}`} onClick={select}>
 			{state.value === 0 ? '' : state.value}
 		</Container>
 	);
