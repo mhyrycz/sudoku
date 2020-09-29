@@ -26,7 +26,9 @@ const Block: FC<IProps> = ({ colIndex, rowIndex }) => {
 		isActive: selectedBlock ? selectedBlock[0] === colIndex && selectedBlock[1] === rowIndex : false
 	}));
 	const dispatch = useDispatch<Dispatch<AnyAction>>();
-	const select = () => dispatch(selectBlock([ colIndex, rowIndex ]));
+	const select = () => {
+		if (!state.isActive) dispatch(selectBlock([ colIndex, rowIndex ]));
+	};
 
 	return (
 		<Container active={state.isActive} data-cy={`block-${rowIndex}-${colIndex}`} onClick={select}>
