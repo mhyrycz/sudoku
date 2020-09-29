@@ -21,8 +21,8 @@ interface IState {
 }
 
 const Block: FC<IProps> = ({ colIndex, rowIndex }) => {
-	const state = useSelector<IReducer, IState>(({ grid, selectedBlock }) => ({
-		value: grid ? grid[colIndex][rowIndex] : 0,
+	const state = useSelector<IReducer, IState>(({ workingGrid, selectedBlock }) => ({
+		value: workingGrid ? workingGrid[colIndex][rowIndex] : 0,
 		isActive: selectedBlock ? selectedBlock[0] === colIndex && selectedBlock[1] === rowIndex : false
 	}));
 	const dispatch = useDispatch<Dispatch<AnyAction>>();
